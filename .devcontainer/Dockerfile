@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/devcontainers/typescript-node:24-bookworm
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential pkg-config libssl-dev libdbus-1-3 ca-certificates curl git jq \
+    && apt-get install -y --no-install-recommends build-essential pkg-config libssl-dev libdbus-1-3 ca-certificates curl git git-lfs jq \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 RUN npm install --global --force pnpm@12.3.4
