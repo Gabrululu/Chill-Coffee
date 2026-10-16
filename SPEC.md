@@ -323,7 +323,7 @@ CAFE_REGISTRY_WASM_HASH=HASH_HEXADECIMAL_DEL_REGISTRO
 CAFE_REGISTRY_ADMIN=DIRECCION_G_DEL_ADMIN
 ```
 
-Sustituye todos los marcadores y reinicia `pnpm dev`. Si no defines estos valores, se utiliza el registro público incluido en el repositorio; puede estar vacío y no debe confundirse con el registro de tu evento.
+Sustituye todos los marcadores y reinicia `pnpm dev`. Si no defines estos valores, se utiliza el registro público incluido en `deployments/registry-testnet.json`, correspondiente a https://chill-cafe.mintedinpe.workers.dev/. Puede cambiar o dejar de existir tras un reinicio de Testnet. Para otro evento, solicita sus tres valores a quien facilita. Si practicas por tu cuenta, coordina con quien facilita la creación de un registro propio y la revisión y aprobación de tu café.
 
 ## 9. Crear, pedir y servir desde la página
 

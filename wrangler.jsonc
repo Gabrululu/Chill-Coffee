@@ -18,6 +18,7 @@
     }
   ],
   "vars": {
+    "SITE_URL": "https://chill-cafe.mintedinpe.workers.dev",
     "AI_PROVIDER": "anthropic",
     "ANTHROPIC_MODEL": "claude-sonnet-5-5",
     "CAFE_REGISTRY_CONTRACT_ID": "CD3ZC5CCZBQNHPISNST5F5GLZOPZMIGHXKTRPXRA5YIHUCJU7VOWYBTI",

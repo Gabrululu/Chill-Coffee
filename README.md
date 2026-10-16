@@ -4,7 +4,11 @@ Un taller para descubrir Stellar construyendo una cafetería comunitaria. Cada p
 
 **Todo el taller se realiza en Stellar Testnet. No se utilizan fondos reales ni datos simulados.**
 
-**[Empezar el taller: SPEC.md](SPEC.md)** · [Abrir en GitHub Codespaces](https://codespaces.new/Gabrululu/Chill-Coffee)
+**[Empezar el taller: SPEC.md](SPEC.md)** · [Hacer fork](https://github.com/Gabrululu/Chill-Coffee/fork)
+
+Después del fork, abre **Code → Codespaces → Create codespace en tu repositorio**. Así podrás guardar y publicar tus soluciones en tu propia cuenta.
+
+La página del evento está en **https://chill-cafe.mintedinpe.workers.dev/**. El fork incluye su registro público, pero desplegar tu contrato no lo publica automáticamente: entrega el manifiesto a quien facilita para que lo revise y apruebe. Para un evento independiente o para practicar sin depender de esa aprobación, coordina la creación de un registro propio con quien facilita.
 
 ## Una introducción al ecosistema Stellar
 
