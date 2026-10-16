@@ -1,0 +1,30 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { visibleCafeData } from './visibility';
+import { scopeSnapshot } from './community';
+import { cafeBoard } from './board';
+import type { MenuItem, Order } from '../types';
+const contractId = 'CCWWU2UY5WAO7WXBRXHZQA7AHSDE6FMNZOFPKG3AECKEP5MY7QAAADYP';
+const names = ['Phase 2 Testnet Espresso', 'Phase 4 Lúcuma Orbit', 'Workshop Orbit Affogato', 'Community latte'];
+const items: MenuItem[] = names.map((name, index) => ({ id: String(index + 1), name, category: 'coffee', ingredients: ['Coffee'], description: 'A coffee.', vibe: 'Cozy', price_xlm: 3, orders_count: 1, creator: 'creator', created_at: 1000, art: 0 }));
+const orders: Order[] = items.map(item => ({ id: item.id, item_id: item.id, buyer: 'buyer', creator: item.creator, amount: 3, status: 'Pending', created_at: 1000 }));
+test('requested rehearsal recipes and their orders disappear from every public board without modifying chain data', () => {
+  const source = scopeSnapshot({ contractId, name: 'Café', wasmHash: 'a'.repeat(64) }, { items, orders });
+  const visible = visibleCafeData(source);
+  assert.deepEqual(visible.items.map(item => item.name), ['Community latte']);
+  assert.deepEqual(visible.orders.map(order => order.item_id), [`${contractId}:4`]);
+  const board = cafeBoard(visible, 2000);
+  assert.equal(board.latest.length, 1);
+  assert.equal(board.favorites.length, 1);
+  assert.equal(board.pending, 1);
+  assert.equal(board.totalOrders, 1);
+  assert.equal(source.items.length, 4);
+  assert.equal(source.orders.length, 4);
+});
+test('same IDs in another café and same names on future records remain visible', () => {
+  const other = scopeSnapshot({ contractId: 'another-cafe', name: 'Other', wasmHash: 'b'.repeat(64) }, { items, orders });
+  assert.equal(visibleCafeData(other).items.length, 4);
+  assert.equal(visibleCafeData(other).orders.length, 4);
+  const future = { ...items[0], id: `${contractId}:5` };
+  assert.deepEqual(visibleCafeData({ items: [future], orders: [] }).items, [future]);
+});

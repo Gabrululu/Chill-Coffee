@@ -1,0 +1,61 @@
+--- a/contracts/cafe_menu/src/lib.rs
++++ b/contracts/cafe_menu/src/lib.rs
+@@ -132,6 +132,13 @@
+     #[topic]
+     pub buyer: Address,
+     pub amount: i128,
++}
++
++#[contractevent]
++pub struct ThanksForOrdering {
++    #[topic]
++    pub item_id: u64,
++    pub order_id: u64,
+ }
+ 
+ #[contract]
+@@ -264,6 +271,12 @@
+             amount,
+         }
+         .publish(&env);
++        // A safe first extension: no change to authorization, amount or storage.
++        ThanksForOrdering {
++            item_id,
++            order_id: id,
++        }
++        .publish(&env);
+         Ok(order)
+     }
+ 
+--- a/contracts/cafe_menu/src/test.rs
++++ b/contracts/cafe_menu/src/test.rs
+@@ -214,14 +214,21 @@
+     assert_eq!(auths[0].1.sub_invocations.len(), 1); // Nested SAC transfer is signed.
+     assert_eq!(
+         f.env.events().all().filter_by_contract(&f.id),
+-        std::vec![ItemOrdered {
+-            item_id: 1,
+-            order_id: 1,
+-            buyer: f.buyer.clone(),
+-            creator: f.creator.clone(),
+-            amount: 3 * STROOPS_PER_XLM,
+-        }
+-        .to_xdr(&f.env, &f.id)]
++        std::vec![
++            ItemOrdered {
++                item_id: 1,
++                order_id: 1,
++                buyer: f.buyer.clone(),
++                creator: f.creator.clone(),
++                amount: 3 * STROOPS_PER_XLM,
++            }
++            .to_xdr(&f.env, &f.id),
++            ThanksForOrdering {
++                item_id: 1,
++                order_id: 1
++            }
++            .to_xdr(&f.env, &f.id),
++        ]
+     );
+     let token = TokenClient::new(&f.env, &f.token);
+     assert_eq!(token.balance(&f.buyer), 97 * STROOPS_PER_XLM);

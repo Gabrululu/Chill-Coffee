@@ -1,0 +1,11 @@
+{
+  "network": "testnet",
+  "status": "confirmed",
+  "admin": "GDJSZPACRATPHX6BJ3HOJ6V73HZFC7W2EY4BH3LP3XE2HLFLXTM7JSTM",
+  "wasm_sha256": "c27ca51c7dff4df2962d5f3eea62eb34fce81e9084082a9bb7a4eaf2d0a2468a",
+  "contract_id": "CCUDDRXNQLGZJUWUYNUCYMW7DN6DHPRQTZH5V6UEUOADY7XW7BY7W4OX",
+  "salt": "f8774deed16c57918938c502b0e2209b6e4505ba6ee03151297ceff6536bbb85",
+  "deployment_transaction": "0948293c4fcb47389177b00629ebf60ff0e3d9b5c914eb6fe557e663bdef7d20",
+  "admin_identity_name": "chill-cafe-event-host",
+  "purpose": "Event directory; cafes require administrator approval."
+}

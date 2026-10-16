@@ -1,0 +1,18 @@
+{
+  "network": "testnet",
+  "source": "GAGSJOJNX6XCBFBRDBMT65IUMDYXMTPNUSAFDIDWL4NHZDBPJ7P2QFHX",
+  "barista": "GAGSJOJNX6XCBFBRDBMT65IUMDYXMTPNUSAFDIDWL4NHZDBPJ7P2QFHX",
+  "payment_token": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+  "contract_id": "CCWWU2UY5WAO7WXBRXHZQA7AHSDE6FMNZOFPKG3AECKEP5MY7QAAADYP",
+  "wasm_sha256": "bff25bf4c3ac45e6209c2238f5871fae2ab868aef97e5e040efb8ca4c752dd2c",
+  "status": "confirmed",
+  "rpc_url": "https://soroban-testnet.stellar.org/",
+  "network_passphrase": "Test SDF Network ; September 2015",
+  "confirmed_at": "2026-10-15T08:36:02.887Z",
+  "upload_transaction": "59e77fae38c03811bf141db1f52e0eba4d5fb01f96a52e6098503610a82fb498",
+  "deployment_transaction": "4637cb897971aedd245835887b30fc3d972c32f49efbf132f0d7d5a043f496c9",
+  "sdk_version": "29.0.1",
+  "rust_version": "1.91.1",
+  "cli_version": "28.1.0",
+  "purpose": "Phase 2 public Testnet rehearsal. Dedicated identities stored outside the repository; create your own for workshops."
+}

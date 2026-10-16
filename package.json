@@ -1,0 +1,58 @@
+{
+  "name": "stellar-chill-cafe",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.3.4",
+  "scripts": {
+    "dev": "next dev frontend --turbopack --hostname 0.0.0.0",
+    "build": "next build frontend",
+    "start": "next start frontend --hostname 0.0.0.0",
+    "lint": "eslint frontend scripts",
+    "typecheck": "tsc --noEmit -p frontend/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
+    "test": "tsx --test frontend/lib/ai/*.test.ts frontend/lib/stellar/*.test.ts frontend/lib/cafe/*.test.ts scripts/*.test.ts",
+    "contract:build": "tsx scripts/contract.ts build",
+    "contract:test": "tsx scripts/contract.ts test",
+    "contract:check": "tsx scripts/contract.ts check",
+    "contract:deploy": "tsx scripts/deploy.ts",
+    "fund:wallet": "tsx scripts/fund-wallet.ts",
+    "contract:smoke": "tsx scripts/smoke-testnet.ts",
+    "contract:bindings": "tsx scripts/generate-bindings.ts",
+    "wallet:smoke": "tsx scripts/smoke-wallet.ts",
+    "cafe:smoke": "tsx scripts/smoke-cafe.ts",
+    "make:coffee": "tsx scripts/make-coffee.ts",
+    "register:item": "tsx scripts/register-item.ts",
+    "seed": "tsx scripts/seed-items.ts",
+    "cafe:export": "tsx scripts/export-cafe.ts",
+    "cafe:add": "tsx scripts/add-cafe.ts",
+    "cafe:check": "tsx scripts/check-cafes.ts",
+    "community:smoke": "tsx scripts/smoke-community.ts",
+    "registry:deploy": "tsx scripts/deploy-registry.ts",
+    "cf:build": "cd frontend && opennextjs-cloudflare build --config ../wrangler.jsonc",
+    "cf:preview": "cd frontend && opennextjs-cloudflare preview --config ../wrangler.jsonc",
+    "cf:deploy": "cd frontend && opennextjs-cloudflare deploy --config ../wrangler.jsonc"
+  },
+  "dependencies": {
+    "@stellar/freighter-api": "6.0.1",
+    "@stellar/stellar-sdk": "17.2.1",
+    "next": "15.5.28",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@opennextjs/cloudflare": "1.20.12",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "15.5.28",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "wrangler": "4.151.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

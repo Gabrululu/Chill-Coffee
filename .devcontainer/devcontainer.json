@@ -1,0 +1,24 @@
+{
+  "name": "Stellar Chill Café · Testnet",
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "hostRequirements": { "cpus": 4, "memory": "8gb", "storage": "32gb" },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "Stellar Chill Café", "onAutoForward": "openBrowser", "protocol": "http" }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "node .devcontainer/start-dev.mjs",
+  "waitFor": "postCreateCommand",
+  "customizations": {
+    "vscode": {
+      "extensions": ["rust-lang.rust-analyzer", "dbaeumer.vscode-eslint", "bradlc.vscode-tailwindcss"],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "rust-analyzer.check.command": "clippy",
+        "[rust]": { "editor.defaultFormatter": "rust-lang.rust-analyzer", "editor.formatOnSave": true }
+      }
+    }
+  }
+}

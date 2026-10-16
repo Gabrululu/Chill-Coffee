@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@opennextjs/cloudflare@1.20.12'

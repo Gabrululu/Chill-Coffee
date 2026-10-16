@@ -1,0 +1,5 @@
+{
+  "wasm_sha256": "bff25bf4c3ac45e6209c2238f5871fae2ab868aef97e5e040efb8ca4c752dd2c",
+  "generator": "@stellar/stellar-sdk",
+  "generator_version": "17.2.1"
+}

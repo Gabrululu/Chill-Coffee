@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chill-cafe",
+  "main": "frontend/.open-next/worker.js",
+  "compatibility_date": "2026-10-16",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": "frontend/.open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "chill-cafe"
+    }
+  ],
+  "vars": {
+    "AI_PROVIDER": "anthropic",
+    "ANTHROPIC_MODEL": "claude-sonnet-5-5",
+    "CAFE_REGISTRY_CONTRACT_ID": "CD3ZC5CCZBQNHPISNST5F5GLZOPZMIGHXKTRPXRA5YIHUCJU7VOWYBTI",
+    "CAFE_REGISTRY_WASM_HASH": "c27ca51c7dff4df2962d5f3eea62eb34fce81e9084082a9bb7a4eaf2d0a2468a",
+    "CAFE_REGISTRY_ADMIN": "GBK7YOS5ZKVDXVQOWKWJTZJCFQT7TCM2RLHNRZHCOBCZEQAVQACOTS2I"
+  }
+}
