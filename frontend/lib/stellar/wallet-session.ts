@@ -8,11 +8,11 @@ import { DISCONNECTED, type WalletSnapshot } from './wallet-state';
 export { DISCONNECTED, type WalletSnapshot, type WalletStatus } from './wallet-state';
 
 export function walletSnapshot(address: string, network: string, passphrase: string): WalletSnapshot {
-  if (!StrKey.isValidEd25519PublicKey(address)) throw new WalletError('invalid-address', 'Freighter did not return a valid Stellar account.');
+  if (!StrKey.isValidEd25519PublicKey(address)) throw new WalletError('invalid-address', 'Varial Wallet did not return a valid Stellar account.');
   return {
     address, network,
     status: passphrase === TESTNET.passphrase ? 'connected' : 'wrong-network',
-    error: passphrase === TESTNET.passphrase ? null : 'Choose Testnet in Freighter, then refresh your connection.',
+    error: passphrase === TESTNET.passphrase ? null : 'Choose Testnet in Varial Wallet, then refresh your connection.',
   };
 }
 // Extension requests can remain unresolved when a popup or content script stops responding.
@@ -23,7 +23,7 @@ export async function walletRequest<T>(request: () => Promise<T>, timeout = 10_0
     return await Promise.race([
       Promise.resolve().then(request),
       new Promise<never>((_, reject) => {
-        timer = setTimeout(() => reject(new WalletError('wallet-timeout', 'Freighter did not respond. Open and unlock the extension, close any pending requests, then try again. Nothing was sent.')), timeout);
+        timer = setTimeout(() => reject(new WalletError('wallet-timeout', 'Varial Wallet did not respond. Open and unlock the extension, close any pending requests, then try again. Nothing was sent.')), timeout);
       }),
     ]);
   } finally { clearTimeout(timer); }
@@ -31,7 +31,7 @@ export async function walletRequest<T>(request: () => Promise<T>, timeout = 10_0
 
 export async function readWallet(api: FreighterApi, requestAccess = false): Promise<WalletSnapshot> {
   const installed = await walletRequest(() => api.isConnected());
-  if (installed.error || !installed.isConnected) throw new WalletError('missing-extension', 'Install or unlock Freighter, then connect again.');
+  if (installed.error || !installed.isConnected) throw new WalletError('missing-extension', 'Install or unlock Varial Wallet, then connect again.');
   const result = await walletRequest(() => requestAccess ? api.requestAccess() : api.getAddress(), requestAccess ? 60_000 : 10_000);
   if (result.error) throw new WalletError('wallet-access', result.error.message);
   if (!result.address) return DISCONNECTED;
@@ -40,13 +40,13 @@ export async function readWallet(api: FreighterApi, requestAccess = false): Prom
   return walletSnapshot(result.address, details.network, details.networkPassphrase);
 }
 export function requireWallet(snapshot: WalletSnapshot, expectedAddress?: string): string {
-  if (snapshot.status === 'wrong-network') throw new WalletError('wrong-network', 'Switch Freighter to Stellar Testnet before signing.');
-  if (snapshot.status !== 'connected' || !snapshot.address) throw new WalletError('disconnected', 'Connect and unlock Freighter first.');
+  if (snapshot.status === 'wrong-network') throw new WalletError('wrong-network', 'Switch Varial Wallet to Stellar Testnet before signing.');
+  if (snapshot.status !== 'connected' || !snapshot.address) throw new WalletError('disconnected', 'Connect and unlock Varial Wallet first.');
   if (expectedAddress && snapshot.address !== expectedAddress) throw new WalletError('account-changed', 'The active wallet account changed. Nothing was sent; refresh and review again.');
   return snapshot.address;
 }
 
-// Freighter holds the key. We accept only a signature over the exact transaction
+// Varial Wallet holds the key. We accept only a signature over the exact transaction
 // the app prepared, from the account and Testnet network the user reviewed.
 export function createFreighterSigner(api: FreighterApi, expectedAddress: string) {
   return async (xdr: string, opts?: { networkPassphrase?: string; address?: string }) => {
@@ -56,7 +56,7 @@ export function createFreighterSigner(api: FreighterApi, expectedAddress: string
     requireWallet(await readWallet(api), expectedAddress);
     const result = await walletRequest(() => api.signTransaction(xdr, { networkPassphrase: TESTNET.passphrase, address: expectedAddress }), 120_000);
     if (result.error) throw new WalletError('signature-rejected', result.error.message);
-    if (!result.signedTxXdr || result.signerAddress !== expectedAddress) throw new WalletError('wrong-signer', 'Freighter returned a different signer. Nothing was sent.');
+    if (!result.signedTxXdr || result.signerAddress !== expectedAddress) throw new WalletError('wrong-signer', 'Varial Wallet returned a different signer. Nothing was sent.');
     requireWallet(await readWallet(api), expectedAddress);
     const unsigned = TransactionBuilder.fromXdr(xdr, TESTNET.passphrase);
     const signed = TransactionBuilder.fromXdr(result.signedTxXdr, TESTNET.passphrase);
@@ -65,7 +65,7 @@ export function createFreighterSigner(api: FreighterApi, expectedAddress: string
     }
     const publicKey = Keypair.fromPublicKey(expectedAddress);
     if (!signed.signatures.some(signature => publicKey.verify(signed.hash(), signature.signature))) {
-      throw new WalletError('invalid-signature', 'Freighter did not provide the expected account signature. Nothing was sent.');
+      throw new WalletError('invalid-signature', 'Varial Wallet did not provide the expected account signature. Nothing was sent.');
     }
     return { signedTxXdr: result.signedTxXdr, signerAddress: result.signerAddress };
   };

@@ -14,7 +14,7 @@ Lee primero la [introducción y el glosario](README.md). Consulta [Stellar Skill
 ### Ruta recomendada si es tu primer contrato
 
 1. Prepara el entorno con Codespaces (abajo) o con la instalación local (apartados 2 y 3).
-2. Crea y financia las dos cuentas del apartado 4: una en Freighter y otra en CLI.
+2. Crea y financia las dos cuentas del apartado 4: una en Varial Wallet y otra en CLI.
 3. Modifica y prueba `CafeMenu` siguiendo los apartados 5 y 6.
 4. Compila, despliega y verifica el resultado en el apartado 7.
 5. Exporta el manifiesto y entrégalo a quien facilita (apartado 8). Tras su aprobación podrás usar tu café desde la página.
@@ -27,7 +27,7 @@ Haz fork del repositorio en GitHub. En **tu fork**, abre **Code → Codespaces �
 
 El contenedor instala Node 24, pnpm 12.3.4, Rust 1.91.1 con `wasm32v1-none` y Stellar CLI 28.1.0. Después instala las dependencias, compila los dos contratos, crea los archivos de entorno si faltan e inicia el frontend en el puerto 3000. La primera preparación descarga herramientas y puede tardar varios minutos. No crea identidades ni envía transacciones.
 
-Abre el puerto 3000 desde **Ports**. Instala Freighter en tu navegador local y usa esa misma ventana para abrir el frontend. La wallet no se instala dentro del contenedor. Si no se inicia la página, ejecuta `pnpm dev`; el registro de inicio está en `/tmp/stellar-chill-cafe-dev.log`. Si cambias la configuración del contenedor, usa **Codespaces: Rebuild Container**.
+Abre el puerto 3000 desde **Ports**. Instala Varial Wallet en tu navegador local y usa esa misma ventana para abrir el frontend. La wallet no se instala dentro del contenedor. Si no se inicia la página, ejecuta `pnpm dev`; el registro de inicio está en `/tmp/stellar-chill-cafe-dev.log`. Si cambias la configuración del contenedor, usa **Codespaces: Rebuild Container**.
 
 Con el entorno preparado, continúa en el apartado 4.
 
@@ -41,13 +41,13 @@ Necesitas estas cinco herramientas:
 | Node.js 24 y pnpm | Ejecutar el frontend y los scripts TypeScript. | [Node.js](https://nodejs.org/en/download) · [pnpm](https://pnpm.io/installation) |
 | Rust + `wasm32v1-none` | Compilar contratos a WebAssembly. | [rustup](https://rustup.rs/) |
 | Stellar CLI | Crear identidades, desplegar e interactuar con Testnet. | [Instalar CLI](https://developers.stellar.org/docs/tools/cli/install-cli) |
-| Freighter | Firmar las operaciones del navegador. | [Freighter](https://www.freighter.app/) |
+| Varial Wallet | Firmar las operaciones del navegador. | [Varial Wallet](https://varialwallet.com/) |
 
 Usamos Node 24 para que todos tengan el mismo entorno. No uses Node 18. Rust se fija mediante `rust-toolchain.toml`; pnpm mediante `package.json`.
 
 ### Windows
 
-Recomendamos [WSL2 con Ubuntu](https://learn.microsoft.com/windows/wsl/install) para ejecutar los comandos Bash del taller. Desde PowerShell como administrador ejecuta `wsl --install`, reinicia si se solicita y abre Ubuntu. Sigue allí los pasos Linux y guarda el proyecto en tu directorio Linux. Freighter se instala en el navegador de Windows.
+Recomendamos [WSL2 con Ubuntu](https://learn.microsoft.com/windows/wsl/install) para ejecutar los comandos Bash del taller. Desde PowerShell como administrador ejecuta `wsl --install`, reinicia si se solicita y abre Ubuntu. Sigue allí los pasos Linux y guarda el proyecto en tu directorio Linux. Varial Wallet se instala en el navegador de Windows.
 
 Esta recomendación unifica el entorno del taller; Stellar CLI también documenta opciones nativas para Windows.
 
@@ -123,9 +123,11 @@ Copia los archivos de entorno solo la primera vez; no sobrescribas tu configurac
 
 ## 4. Crear, financiar y respaldar la wallet
 
-### Freighter para usar la página
+### Varial Wallet para usar la página
 
-Instala [Freighter](https://www.freighter.app/) desde su sitio oficial. Sigue la [guía de creación](https://help.freighter.app/article/debwabbw3h-get-started-with-freighter) para crear una wallet exclusiva del taller, guarda su frase de recuperación en privado y establece una contraseña. En la configuración de red selecciona **Testnet**. La passphrase pública de la red es:
+Varial Wallet es el nuevo nombre de Freighter. Si ya tienes una cuenta, conserva tu wallet y actualiza la extensión; el cambio de marca no requiere crear otra cuenta.
+
+Instala [Varial Wallet](https://varialwallet.com/) desde su sitio oficial. Sigue la [guía de creación](https://varialwallet.com/faq) para crear una wallet exclusiva del taller, guarda su frase de recuperación en privado y establece una contraseña. En la configuración de red selecciona **Testnet**. La passphrase pública de la red es:
 
 ```text
 Test SDF Network ; September 2015
@@ -137,17 +139,17 @@ Copia tu dirección pública `G…`. Conecta la extensión a la página y acepta
 https://friendbot.stellar.org/?addr=TU_DIRECCION_G
 ```
 
-Reemplaza el marcador por la dirección completa. Verifica el saldo en Freighter o en [Stellar Expert Testnet](https://stellar.expert/explorer/testnet). Friendbot financia cuentas de prueba; no debe usarse como recarga repetitiva de una cuenta ya financiada.
+Reemplaza el marcador por la dirección completa. Verifica el saldo en Varial Wallet o en [Stellar Expert Testnet](https://stellar.expert/explorer/testnet). Friendbot financia cuentas de prueba; no debe usarse como recarga repetitiva de una cuenta ya financiada.
 
 ### Identidad CLI para desplegar
 
-El camino recomendado utiliza dos cuentas: Freighter firma recetas y pedidos; una identidad nueva de CLI despliega el contrato. Ambas necesitan XLM de Testnet.
+El camino recomendado utiliza dos cuentas: Varial Wallet firma recetas y pedidos; una identidad nueva de CLI despliega el contrato. Ambas necesitan XLM de Testnet.
 
-En el archivo raíz `.env`, conserva el nombre de identidad y añade **tu dirección pública de Freighter** como barista:
+En el archivo raíz `.env`, conserva el nombre de identidad y añade **tu dirección pública de Varial Wallet** como barista:
 
 ```dotenv
 STELLAR_IDENTITY=chill-cafe-testnet
-STELLAR_BARISTA_ADDRESS=TU_DIRECCION_G_DE_FREIGHTER
+STELLAR_BARISTA_ADDRESS=TU_DIRECCION_G_DE_VARIAL
 ```
 
 El segundo valor debe ser una dirección válida completa, no el texto del ejemplo. Quita el `#` inicial de `STELLAR_BARISTA_ADDRESS` si editas la línea comentada de `.env.example`. Guarda el archivo. Los scripts leen `.env` de la raíz; no basta con editar `frontend/.env.local`.
@@ -161,11 +163,11 @@ stellar keys address chill-cafe-testnet
 
 El script verifica Testnet antes de financiar y no reemplaza una identidad existente. Si ya existe, usa `pnpm fund:wallet`. Las identidades se almacenan fuera del repositorio; `.env` contiene el **nombre**, nunca la clave privada. No es necesario importar tu wallet del navegador a Codespaces.
 
-Al terminar debes ver `Testnet account available: G…` o `Account already available: G…`. La dirección que imprime `stellar keys address` corresponde a la cuenta CLI y normalmente será distinta de la de Freighter. La cuenta CLI paga el despliegue; `STELLAR_BARISTA_ADDRESS` permite a tu wallet del navegador servir pedidos. Si cambias `STELLAR_IDENTITY`, usa ese mismo nombre en los comandos `stellar keys …`.
+Al terminar debes ver `Testnet account available: G…` o `Account already available: G…`. La dirección que imprime `stellar keys address` corresponde a la cuenta CLI y normalmente será distinta de la de Varial Wallet. La cuenta CLI paga el despliegue; `STELLAR_BARISTA_ADDRESS` permite a tu wallet del navegador servir pedidos. Si cambias `STELLAR_IDENTITY`, usa ese mismo nombre en los comandos `stellar keys …`.
 
 ### Importar una cuenta existente al CLI (opcional)
 
-Si necesitas que el CLI firme con la misma cuenta de Freighter, por ejemplo para administrar el registro del evento, importa una cuenta exclusiva de Testnet con este alias:
+Si necesitas que el CLI firme con la misma cuenta de Varial Wallet, por ejemplo para administrar el registro del evento, importa una cuenta exclusiva de Testnet con este alias:
 
 ```bash
 stellar keys add chill-cafe-owner --secret-key
@@ -179,7 +181,7 @@ Comprueba la dirección pública importada:
 stellar keys address chill-cafe-owner
 ```
 
-Debe coincidir con la dirección `G…` de la cuenta elegida en Freighter. Para usarla con los scripts del proyecto, configura en el `.env` raíz:
+Debe coincidir con la dirección `G…` de la cuenta elegida en Varial Wallet. Para usarla con los scripts del proyecto, configura en el `.env` raíz:
 
 ```dotenv
 STELLAR_IDENTITY=chill-cafe-owner
@@ -189,15 +191,15 @@ El alias puede ser distinto; mantenlo consistente entre la importación, la veri
 
 ### Exportar o recuperar una wallet (opcional)
 
-Para compartir tu café exporta **direcciones públicas y el manifiesto**, nunca secretos. Guarda el respaldo de Freighter según su [ayuda oficial](https://help.freighter.app/); la contraseña de la extensión no sustituye la frase de recuperación.
+Para compartir tu café exporta **direcciones públicas y el manifiesto**, nunca secretos. Guarda el respaldo de Varial Wallet según su [ayuda oficial](https://varialwallet.com/faq); la contraseña de la extensión no sustituye la frase de recuperación.
 
-Si quieres usar en Freighter la cuenta nueva creada por CLI, puedes obtener su frase ejecutando **en privado**, fuera de sesiones grabadas:
+Si quieres usar en Varial Wallet la cuenta nueva creada por CLI, puedes obtener su frase ejecutando **en privado**, fuera de sesiones grabadas:
 
 ```bash
 stellar keys secret chill-cafe-testnet --phrase
 ```
 
-Este comando muestra un secreto. No lo pegues en archivos del repo, chats, capturas ni variables `NEXT_PUBLIC_*`. Sigue [Import an existing wallet](https://help.freighter.app/article/iev57sxvkc-import-an-existing-wallet) en un perfil de Freighter preparado para importar esa frase. Compara su dirección con `stellar keys address chill-cafe-testnet` y selecciona Testnet. Si decides usar esta cuenta como barista, actualiza `STELLAR_BARISTA_ADDRESS` antes de desplegar.
+Este comando muestra un secreto. No lo pegues en archivos del repo, chats, capturas ni variables `NEXT_PUBLIC_*`. Sigue [Import an existing wallet](https://varialwallet.com/faq) en un perfil de Varial Wallet preparado para importar esa frase. Compara su dirección con `stellar keys address chill-cafe-testnet` y selecciona Testnet. Si decides usar esta cuenta como barista, actualiza `STELLAR_BARISTA_ADDRESS` antes de desplegar.
 
 En Codespaces, cualquiera con acceso al entorno puede acceder a los archivos de identidad. Utiliza únicamente cuentas nuevas de taller; seleccionar Testnet no protege los secretos de una wallet personal utilizada en otras redes.
 
@@ -270,7 +272,7 @@ Antes de continuar, comprueba que:
 
 - Estás en la raíz del proyecto y las verificaciones del apartado 6 terminaron sin errores.
 - La identidad CLI existe y está financiada en Testnet.
-- Guardaste en `.env` el nombre de esa identidad y la dirección pública completa de Freighter como barista.
+- Guardaste en `.env` el nombre de esa identidad y la dirección pública completa de Varial Wallet como barista.
 
 Ejecuta estos comandos uno por uno; espera a que termine la compilación antes de desplegar:
 
@@ -279,7 +281,7 @@ pnpm contract:build
 pnpm contract:deploy
 ```
 
-El script utiliza tu identidad CLI para firmar y pagar las comisiones en XLM de prueba, comprueba la red, despliega el WASM e inicializa el contrato con el barista configurado y el SAC nativo de XLM. No solicita una firma en Freighter.
+El script utiliza tu identidad CLI para firmar y pagar las comisiones en XLM de prueba, comprueba la red, despliega el WASM e inicializa el contrato con el barista configurado y el SAC nativo de XLM. No solicita una firma en Varial Wallet.
 
 **Cómo reconocer un despliegue correcto:**
 
@@ -303,10 +305,10 @@ Repetir un despliegue confirmado verifica el contrato existente. Para desplegar 
 
 ## 8. Compartir tu café con el evento
 
-El manifiesto es un archivo JSON con la dirección y el hash del contrato que quien facilita necesita para incorporarlo al directorio. Después de confirmar el despliegue, expórtalo usando tu dirección pública de Freighter como propietario:
+El manifiesto es un archivo JSON con la dirección y el hash del contrato que quien facilita necesita para incorporarlo al directorio. Después de confirmar el despliegue, expórtalo usando tu dirección pública de Varial Wallet como propietario:
 
 ```bash
-pnpm cafe:export --name "Mi Café Lunar" --owner TU_DIRECCION_G_DE_FREIGHTER
+pnpm cafe:export --name "Mi Café Lunar" --owner TU_DIRECCION_G_DE_VARIAL
 ```
 
 Reemplaza el marcador por tu dirección. Se genera `deployments/my-cafe.local.json` después de comprobar el contrato y su WASM. Comparte **ese JSON público**, el código modificado y los resultados de las pruebas con quien facilita. No compartas `.env` ni archivos de identidad.
@@ -327,7 +329,7 @@ Sustituye todos los marcadores y reinicia `pnpm dev`. Si no defines estos valore
 
 ## 9. Crear, pedir y servir desde la página
 
-1. En `/cafes`, elige tu café aprobado y conecta Freighter en Testnet.
+1. En `/cafes`, elige tu café aprobado y conecta Varial Wallet en Testnet.
 2. Abre `/create`. Escribe tu receta o utiliza AI Barista si el servidor tiene proveedor configurado. Revisa nombre, categoría, ingredientes, estilo y precio antes de firmar.
 3. Registra el item. La firma publica la receta en tu contrato; espera confirmación y revisa el hash. No necesitas escribir la receta en una terminal.
 4. En `/menu`, elige el café de otra persona, revisa precio y creador y firma el pedido. XLM se transfiere al creador de esa receta.
@@ -358,7 +360,7 @@ pnpm register:item --contract TU_CONTRATO_C --dry-run
 pnpm register:item --contract TU_CONTRATO_C
 ```
 
-Aquí firma la identidad CLI y esa cuenta queda como creadora; puede ser distinta de Freighter. El script guarda un diario para evitar registros duplicados. Ante una confirmación pendiente usa `pnpm register:item --check` antes de intentar otra escritura.
+Aquí firma la identidad CLI y esa cuenta queda como creadora; puede ser distinta de Varial Wallet. El script guarda un diario para evitar registros duplicados. Ante una confirmación pendiente usa `pnpm register:item --check` antes de intentar otra escritura.
 
 ## 10. Comandos de referencia
 
@@ -382,16 +384,16 @@ Desplegar contratos, registrar recetas y realizar pedidos envía transacciones a
 |---|---|
 | No aparece mi café | Debe estar aprobado en el mismo registro del frontend; confirma con quien facilita. |
 | No puedo servir | Conecta la cuenta creadora de la receta o el barista definido al desplegar. |
-| Freighter indica otra red | Cambia a Testnet en la extensión y vuelve a conectar. |
-| Saldo insuficiente | Comprueba la dirección que firma: Freighter y CLI pueden ser cuentas distintas. |
-| Firma rechazada | Revisa si cancelaste en Freighter; vuelve a intentar solo si no se envió una transacción. |
+| Varial Wallet indica otra red | Cambia a Testnet en la extensión y vuelve a conectar. |
+| Saldo insuficiente | Comprueba la dirección que firma: Varial Wallet y CLI pueden ser cuentas distintas. |
+| Firma rechazada | Revisa si cancelaste en Varial Wallet; vuelve a intentar solo si no se envió una transacción. |
 | Confirmación incierta | Guarda el hash, consulta Stellar Expert Testnet y usa la recuperación indicada por la página/script. No vuelvas a pagar para comprobar. |
 | RPC no disponible | Una wallet conectada no garantiza acceso al RPC desde tu servidor. Revisa conectividad y estado de Testnet; espera y reconsulta. |
 | Contrato incompatible o hash diferente | Reconstruye y exporta el manifiesto correcto; facilita una nueva revisión. No desactives la validación. |
 | Error de compilación | Comprueba Rust 1.91.1, target `wasm32v1-none`, Stellar CLI 28.1.0 y dependencias bloqueadas. |
 | La IA no genera | Escribe la receta manualmente para continuar. |
 
-Red del taller: RPC `https://soroban-testnet.stellar.org/`, Horizon `https://horizon-testnet.stellar.org`. El transporte SDK incluye un RPC alternativo verificado para lecturas; los comandos CLI de despliegue usan el RPC principal. Una caída de ese servicio puede impedir desplegar aunque Freighter funcione. No cambies a Mainnet para solucionar una caída de Testnet.
+Red del taller: RPC `https://soroban-testnet.stellar.org/`, Horizon `https://horizon-testnet.stellar.org`. El transporte SDK incluye un RPC alternativo verificado para lecturas; los comandos CLI de despliegue usan el RPC principal. Una caída de ese servicio puede impedir desplegar aunque Varial Wallet funcione. No cambies a Mainnet para solucionar una caída de Testnet.
 
 Para reiniciar el frontend, detén el proceso con Ctrl+C y ejecuta `pnpm dev`. Recargar el navegador no borra datos on-chain. Conserva los planes y recibos `*.local.json` hasta resolver sus transacciones. Si Testnet se reinicia o el almacenamiento del contrato expira, coordina con la facilitación la restauración o nuevos despliegues y manifiestos; no se recupera estado borrado con datos simulados.
 

@@ -20,7 +20,7 @@ async function latestHash(publicKey: string): Promise<string> {
 
 async function main() {
   console.log('☕ Live Testnet smoke test: registers one item, orders it, serves it, and tips 0.1 XLM.');
-  console.log('Uses two dedicated CLI identities. No Freighter or frontend integration in Phase 2.');
+  console.log('Uses two dedicated CLI identities. No Varial Wallet or frontend integration in Phase 2.');
   await assertTestnet();
   const deployment = JSON.parse(readFileSync('deployments/testnet.local.json', 'utf8'));
   if (deployment.status !== 'confirmed' || deployment.network !== 'testnet') throw new Error('Run contract:deploy and verify its Testnet deployment first.');

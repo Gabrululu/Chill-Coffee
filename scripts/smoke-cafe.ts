@@ -35,7 +35,7 @@ async function execute(key: Keypair, action: CafeAction, requestId = nonce()) {
 }
 async function main() {
   console.log('☕ Phase 4 café rehearsal — TESTNET. Creates an item, pays 3 XLM and serves it.');
-  console.log('Two in-memory signers exercise the real frontend adapter. Browser Freighter popup is not automated.');
+  console.log('Two in-memory signers exercise the real frontend adapter. Browser Varial Wallet popup is not automated.');
   const creator = Keypair.random(), buyer = Keypair.random();
   await Promise.all([fundTestnetAccount(creator.publicKey()), fundTestnetAccount(buyer.publicKey())]);
   const registration = await execute(creator, { kind: 'register', recipe: { name: 'Phase 4 Lúcuma Orbit', category: 'dessert', description: 'A confirmed little joy from the café adapter.', ingredients: ['Lúcuma', 'Espresso', 'Cacao'], vibe: 'Cozy Peruvian cosmos', price_xlm: 3 } });
@@ -63,7 +63,7 @@ async function main() {
   await assert.rejects(prepareCafeAction(creator.publicKey(),nonce(),serveAction), /already been served/);
   const client = await getCafeClient();
   assert.equal((await client.get_order({ id: BigInt(order.id) })).result.unwrap().status.tag,'Served');
-  const receipt = { network: 'testnet', contract_id: CAFE_CONTRACT_ID, creator: creator.publicKey(), buyer: buyer.publicKey(), item_id: item.id, order_id: order.id, amount_stroops: '30000000', registration, order: ordered, served, verified: ['exact creator balance increment', 'menu inclusion', 'pending queue', 'order counter', 'served state', 'self-order rejection', 'stale-price rejection', 'duplicate nonce rejection', 'unauthorized serve rejection', 'double serve rejection'], signer: 'ephemeral in-memory keys through the Freighter adapter; browser extension not automated', confirmed_at: new Date().toISOString() };
+  const receipt = { network: 'testnet', contract_id: CAFE_CONTRACT_ID, creator: creator.publicKey(), buyer: buyer.publicKey(), item_id: item.id, order_id: order.id, amount_stroops: '30000000', registration, order: ordered, served, verified: ['exact creator balance increment', 'menu inclusion', 'pending queue', 'order counter', 'served state', 'self-order rejection', 'stale-price rejection', 'duplicate nonce rejection', 'unauthorized serve rejection', 'double serve rejection'], signer: 'ephemeral in-memory keys through the Varial Wallet adapter; browser extension not automated', confirmed_at: new Date().toISOString() };
   mkdirSync('deployments',{ recursive:true }); writeFileSync('deployments/cafe-testnet.local.json',JSON.stringify(receipt,null,2)+'\n');
   console.log('✓ Full café flow verified through the frontend SDK adapter.'); console.log(JSON.stringify(receipt,null,2));
 }

@@ -10,8 +10,8 @@ import { TESTNET } from '../frontend/lib/stellar/config';
 import { validateCafeEntry } from '../frontend/lib/cafe/registry-validation';
 async function main() {
   const { values } = parseArgs({ options: { help: { type: 'boolean' }, name: { type: 'string' }, owner: { type: 'string' }, contract: { type: 'string' }, wasm: { type: 'string' }, output: { type: 'string' }, force: { type: 'boolean' } } });
-  if (values.help) { console.log('pnpm cafe:export --name "My café" --owner G... [--contract C...] [--wasm path] [--output path] [--force]\nVerifies deployed Testnet WASM against your local build and the shared ABI; exports a public manifest. Never signs or deploys. --owner is your Freighter PUBLIC address.'); return; }
-  if (!values.name || !values.owner || !StrKey.isValidEd25519PublicKey(values.owner)) throw new Error('Provide --name and --owner with your Freighter public G... address (never its secret).');
+  if (values.help) { console.log('pnpm cafe:export --name "My café" --owner G... [--contract C...] [--wasm path] [--output path] [--force]\nVerifies deployed Testnet WASM against your local build and the shared ABI; exports a public manifest. Never signs or deploys. --owner is your Varial Wallet PUBLIC address.'); return; }
+  if (!values.name || !values.owner || !StrKey.isValidEd25519PublicKey(values.owner)) throw new Error('Provide --name and --owner with your Varial Wallet public G... address (never its secret).');
   const contractId = selectContract(values.contract);
   const localWasm = readFileSync(values.wasm ?? WASM);
   assertCompatibleWasm(localWasm);

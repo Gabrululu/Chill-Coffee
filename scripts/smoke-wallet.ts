@@ -11,7 +11,7 @@ import { xlmToStroops } from '../frontend/lib/stellar/amount';
 
 async function main() {
   console.log('☕ Phase 3 SDK rehearsal — TESTNET ONLY.');
-  console.log('Uses an in-memory test signer behind the Freighter adapter interface. This does NOT test the browser extension popup.');
+  console.log('Uses an in-memory test signer behind the Varial Wallet adapter interface. This does NOT test the browser extension popup.');
   const key = Keypair.random(); // Never logged or persisted.
   const publicKey = key.publicKey();
   await fundTestnetAccount(publicKey);
@@ -45,7 +45,7 @@ async function main() {
   assert.equal(xlmToStroops(after.balance) - xlmToStroops(before.balance), TIP_STROOPS);
   const totalAfter = (await client.get_tip_total()).result.unwrap();
   assert.equal(totalAfter - totalBefore, TIP_STROOPS);
-  const receipt = { network: 'testnet', contract_id: CAFE_CONTRACT_ID, account: publicKey, barista: config.barista, amount_stroops: TIP_STROOPS.toString(), fee_stroops: prepared.fee, request_id: requestId, transaction_hash: result.hash, states: states.map(s => s.stage), signer: 'ephemeral in-memory keypair through the Freighter adapter; not a browser extension test', confirmed_at: new Date().toISOString() };
+  const receipt = { network: 'testnet', contract_id: CAFE_CONTRACT_ID, account: publicKey, barista: config.barista, amount_stroops: TIP_STROOPS.toString(), fee_stroops: prepared.fee, request_id: requestId, transaction_hash: result.hash, states: states.map(s => s.stage), signer: 'ephemeral in-memory keypair through the Varial Wallet adapter; not a browser extension test', confirmed_at: new Date().toISOString() };
   mkdirSync('deployments', { recursive: true });
   writeFileSync('deployments/wallet-testnet.local.json', JSON.stringify(receipt, null, 2) + '\n');
   console.log('✓ SDK simulation, signature, submission, confirmation and exact native XLM transfer verified.');

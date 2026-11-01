@@ -5,7 +5,7 @@ export type Service = 'rpc' | 'horizon' | 'friendbot';
 const labels = { rpc: 'Soroban RPC', horizon: 'Horizon (balance service)', friendbot: 'Friendbot' };
 export function serviceFailure(service: Service, status?: number): WalletError {
   const http = status ? ` (HTTP ${status})` : '';
-  return new WalletError(`${service}-unavailable`, `${labels[service]} on Testnet is unavailable${http}. This is separate from your Freighter connection. Try refreshing shortly; do not resend an unresolved transaction.`);
+  return new WalletError(`${service}-unavailable`, `${labels[service]} on Testnet is unavailable${http}. This is separate from your Varial Wallet connection. Try refreshing shortly; do not resend an unresolved transaction.`);
 }
 export function rpcFailure(error: unknown): WalletError {
   const status = error && typeof error === 'object' && 'response' in error ? (error.response as { status?: unknown } | undefined)?.status : undefined;

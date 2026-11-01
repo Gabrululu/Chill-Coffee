@@ -18,7 +18,7 @@ const leb = (n: number) => { const bytes: number[] = []; do { let b = n & 127; n
 async function main() {
   const { values } = parseArgs({ options: { help: { type: 'boolean' } } });
   if (values.help) { console.log('pnpm community:smoke\nTESTNET writes: funds two ephemeral accounts, deploys two cafés, registers/orders/serves across them. A second WASM differs by a harmless custom metadata section, not pricing logic. Keys remain in memory; public hashes are saved before each send.'); return; }
-  console.log('TESTNET ONLY · Two cafés, two in-memory owners. Real test writes; no Freighter popup automation.');
+  console.log('TESTNET ONLY · Two cafés, two in-memory owners. Real test writes; no Varial Wallet popup automation.');
   const first = Keypair.random(), second = Keypair.random();
   const file = `deployments/community-${Date.now()}.local.json`;
   const receipt = { network: 'testnet', status: 'running', cafes: [] as CafeEntry[], transactions: [] as { label: string; hash?: string; stage: string }[], verified: [] as string[] };

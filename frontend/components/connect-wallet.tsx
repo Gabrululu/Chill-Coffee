@@ -15,7 +15,7 @@ export function ConnectWallet() { const { t } = useLanguage();
         label = t("Transaction pending…");
     else if (snapshot.address)
         label = short(snapshot.address);
-    return <button className={`wallet ${snapshot.status === 'wrong-network' ? 'wallet-wrong' : ''}`} onClick={() => setPanelOpen(true)} aria-label={`${label}. Open Freighter wallet panel`}>
+    return <button className={`wallet ${snapshot.status === 'wrong-network' ? 'wallet-wrong' : ''}`} onClick={() => setPanelOpen(true)} aria-label={`${label}. Open Varial Wallet wallet panel`}>
     <span className="wallet-icon" aria-hidden="true">▣</span><span aria-live="polite">{label}</span><span aria-hidden="true">↗</span>
   </button>;
 }

@@ -278,7 +278,7 @@ export function WalletProvider({ children }: {
         try {
             const [api, {readWallet, requireWallet}] = await Promise.all([import('@stellar/freighter-api'), import('@/lib/stellar/wallet-session')]);
             if (!active.current)
-                throw new WalletError('disconnected', 'Connect Freighter first.');
+                throw new WalletError('disconnected', 'Connect Varial Wallet first.');
             const address = requireWallet(await readWallet(api), snapshotRef.current.address || undefined);
             const requestId = Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('');
             const service = await import('@/lib/stellar/cafe-contract');

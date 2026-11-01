@@ -33,7 +33,7 @@ test('Testnet uses the official passphrase and ignores a spoofed network label',
 });
 test('missing extension never requests permission', async () => {
   let calls = 0;
-  await assert.rejects(readWallet(api({ isConnected: async () => ({ isConnected: false }), requestAccess: async () => { calls++; return { address: '' }; } }), true), /Freighter/);
+  await assert.rejects(readWallet(api({ isConnected: async () => ({ isConnected: false }), requestAccess: async () => { calls++; return { address: '' }; } }), true), /Varial Wallet/);
   assert.equal(calls, 0);
 });
 test('refresh uses silent address lookup and does not open an access prompt', async () => {
@@ -90,7 +90,7 @@ test('a modified transaction body or missing signature is rejected', async () =>
   const xdr = unsigned();
   await assert.rejects(createFreighterSigner(api({ signTransaction: async () => ({ signedTxXdr: xdr, signerAddress: key.publicKey() }) }), key.publicKey())(xdr, options), /does not match/);
 });
-test('wrong signing options are blocked before contacting Freighter', async () => {
+test('wrong signing options are blocked before contacting Varial Wallet', async () => {
   await assert.rejects(createFreighterSigner(api(), key.publicKey())(unsigned(), { networkPassphrase: Networks.PUBLIC }), /context/);
 });
 test('a signature from another key cannot masquerade as the expected signer', async () => {
@@ -108,7 +108,7 @@ test('unresponsive extension calls time out and a later reply cannot resume the 
     .then(() => { continued = true; });
   await assert.rejects(pending, (error: unknown) => {
     assert.ok(error instanceof Error);
-    assert.match(error.message, /Freighter did not respond/);
+    assert.match(error.message, /Varial Wallet did not respond/);
     assert.match(error.message, /Nothing was sent/);
     return true;
   });

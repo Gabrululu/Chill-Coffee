@@ -4,10 +4,10 @@ import { checkTestnetServices, rpcFailure } from './service-status';
 import { errorMessage } from './errors';
 import { TESTNET } from './config';
 import { getAccountInfo } from './account';
-test('a 504 RPC failure identifies the provider independently of Freighter', () => {
+test('a 504 RPC failure identifies the provider independently of Varial Wallet', () => {
   const message = errorMessage(rpcFailure({ response: { status: 504 }, message: 'private upstream details' }));
-  assert.match(message, /Soroban RPC.*HTTP 504/); assert.match(message, /separate from your Freighter/);
-  assert.doesNotMatch(message, /private upstream details|Switch Freighter/);
+  assert.match(message, /Soroban RPC.*HTTP 504/); assert.match(message, /separate from your Varial Wallet/);
+  assert.doesNotMatch(message, /private upstream details|Switch Varial Wallet/);
 });
 test('diagnosis distinguishes a failed RPC from healthy Horizon and checks getNetwork', async () => {
   const transport: typeof fetch = async (url, init) => {

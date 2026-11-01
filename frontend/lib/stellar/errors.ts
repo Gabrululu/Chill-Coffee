@@ -18,7 +18,7 @@ export function errorMessage(error: unknown): string {
   if (/SelfPayment/.test(raw)) return 'Choose another participant’s recipe or barista account. Self-payments are not allowed.';
   if (/archiv|restore|expired state/i.test(raw)) return 'The contract state needs restoration. Restore it with Stellar CLI before retrying.';
   const status = error && typeof error === 'object' && 'response' in error ? (error.response as { status?: unknown } | undefined)?.status : undefined;
-  if (typeof status === 'number' && status >= 500) return `The Testnet service returned HTTP ${status}. Your Freighter connection can still be valid. Wait and refresh; check any unresolved transaction before retrying.`;
-  if (/timeout|timed out|fetch|network|ECONN|HTTP|service/i.test(raw)) return 'A Testnet data request failed. This is separate from your Freighter connection. Use Check Testnet services and refresh; check any unresolved transaction before retrying.';
+  if (typeof status === 'number' && status >= 500) return `The Testnet service returned HTTP ${status}. Your Varial Wallet connection can still be valid. Wait and refresh; check any unresolved transaction before retrying.`;
+  if (/timeout|timed out|fetch|network|ECONN|HTTP|service/i.test(raw)) return 'A Testnet data request failed. This is separate from your Varial Wallet connection. Use Check Testnet services and refresh; check any unresolved transaction before retrying.';
   return 'The transaction could not be prepared or completed. Check the wallet and your Testnet balance.';
 }

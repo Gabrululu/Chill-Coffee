@@ -13,7 +13,7 @@ export function registrationBlock(state: DirectoryState & { connected: boolean; 
     : !state.targetId ? 'Choose an approved café for your recipe.' : null);
 }
 export function tipBlock(state: DirectoryState & { connected: boolean; hasTarget: boolean; account: { funded: boolean } | null; accountError: string | null; barista: string | null; configError: string | null; selfTip: boolean; funding: boolean }): string | null {
-  if (!state.connected) return 'Connect Freighter on Testnet before preparing a tip.';
+  if (!state.connected) return 'Connect Varial Wallet on Testnet before preparing a tip.';
   const directory = directoryBlock(state);
   if (directory) return directory;
   if (!state.hasTarget) return 'Choose an approved café before preparing a tip.';

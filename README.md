@@ -8,7 +8,7 @@ Un taller para descubrir Stellar construyendo una cafetería comunitaria. Cada p
 
 Después del fork, abre **Code → Codespaces → Create codespace en tu repositorio**. Así podrás guardar y publicar tus soluciones en tu propia cuenta.
 
-La página del evento está en **https://chill-cafe.mintedinpe.workers.dev/**. El fork incluye su registro público, pero desplegar tu contrato no lo publica automáticamente: entrega el manifiesto a quien facilita para que lo revise y apruebe. Para un evento independiente o para practicar sin depender de esa aprobación, coordina la creación de un registro propio con quien facilita.
+La página del evento está en **https://chill-cafe.mintedinpe.workers.dev/**. El fork incluye su registro público, pero desplegar tu contrato no lo publica automáticamente: entrega el manifiesto a quien facilita para que lo revise y apruebe.
 
 ## Una introducción al ecosistema Stellar
 
@@ -39,7 +39,7 @@ Las recetas registradas, órdenes, pagos, estados y directorio están on-chain. 
 | Contrato inteligente | Programa desplegado on-chain que aplica reglas y conserva estado. |
 | WASM / WebAssembly | Formato al que se compila el contrato Rust para ejecutarlo en Soroban. |
 | Wallet | Herramienta que administra cuentas y solicita tu autorización para firmar. |
-| Freighter | Wallet utilizada para conectar el navegador y firmar las acciones del café. |
+| Varial Wallet | Wallet utilizada para conectar el navegador y firmar las acciones del café. |
 | Dirección pública `G…` | Identifica una cuenta. Se puede compartir para recibir fondos de prueba. |
 | Dirección de contrato `C…` | Identifica un contrato desplegado. Es pública. |
 | Clave privada `S…` | Secreto que permite firmar por una cuenta. No se comparte. |
@@ -67,7 +67,7 @@ Las recetas registradas, órdenes, pagos, estados y directorio están on-chain. 
 - [developers.stellar.org](https://developers.stellar.org/) — documentación técnica de Stellar y Soroban.
 - [Stellar Raven](https://raven.stellar.org/) — servidor MCP del ecosistema para consultar documentación, recursos y contexto desde asistentes de IA. [Repositorio](https://github.com/stellar-experimental/stellar-raven).
 - [Stellar Laboratory](https://lab.stellar.org/) — herramienta oficial para construir y enviar transacciones a mano, explorar cuentas y consultar Testnet. [Guía](https://developers.stellar.org/docs/tools/lab).
-- [Freighter](https://www.freighter.app/) — extensión de wallet necesaria para firmar desde el frontend. [Crear wallet](https://help.freighter.app/article/debwabbw3h-get-started-with-freighter) · [Importar una existente](https://help.freighter.app/article/iev57sxvkc-import-an-existing-wallet).
+- [Varial Wallet](https://varialwallet.com/) (antes Freighter) — extensión de wallet necesaria para firmar desde el frontend. [Ayuda oficial](https://varialwallet.com/faq) · [Documentación para integraciones](https://docs.varialwallet.com/).
 - [Friendbot](https://friendbot.stellar.org/) — grifo de fondos Testnet. [Explicación oficial](https://developers.stellar.org/docs/learn/fundamentals/networks#friendbot).
 - [Stellar Expert — Testnet](https://stellar.expert/explorer/testnet) — explorador del ecosistema para consultar cuentas, contratos y transacciones de prueba.
 - [Instalar Stellar CLI](https://developers.stellar.org/docs/tools/cli/install-cli) — instalación y alternativas por sistema operativo.
@@ -78,7 +78,7 @@ Las recetas registradas, órdenes, pagos, estados y directorio están on-chain. 
 contracts/
   cafe_menu/          # Tu café: se modifica, prueba y despliega
   cafe_registry/      # Directorio compartido: lo despliega quien facilita
-frontend/             # Next.js + React + TypeScript; conecta con Freighter
+frontend/             # Next.js + React + TypeScript; conecta con Varial Wallet
 scripts/              # Desplegar, financiar, exportar y aprobar cafés
 workshop/             # Parche opcional para el primer reto de contrato
 .devcontainer/        # Node, pnpm, Rust y Stellar CLI para Codespaces
@@ -89,7 +89,7 @@ El taller utiliza pagos XLM entre participantes. Su estructura corresponde a una
 
 ## Empezar
 
-Con Codespaces, abre el repositorio y espera a que termine la preparación. La página se inicia en el puerto 3000. Freighter se instala en tu navegador local; no dentro del contenedor.
+Con Codespaces, abre el repositorio y espera a que termine la preparación. La página se inicia en el puerto 3000. Varial Wallet se instala en tu navegador local; no dentro del contenedor.
 
 En tu equipo, instala las herramientas de [SPEC.md](SPEC.md#2-instalación-local), clona tu fork y ejecuta:
 
@@ -101,3 +101,7 @@ pnpm dev
 ```
 
 Necesitas Node **22.12 o superior**; el contenedor usa Node **24**, pnpm **12.3.4**, Rust **1.91.1** y Stellar CLI **28.1.0**. Continúa con [SPEC.md](SPEC.md) para crear la wallet, obtener fondos, modificar tu contrato y compartir tu café.
+
+### Compatibilidad de la wallet
+
+Freighter ahora se llama **Varial Wallet** ([anuncio oficial de Stellar](https://stellar.org/blog/foundation-news/freighter-is-now-varial)). La integración conserva el paquete `@stellar/freighter-api`, los nombres internos del adaptador y la clave de sesión existente para mantener la compatibilidad. No necesitas crear otra cuenta por el cambio de nombre; utiliza la extensión actualizada y selecciona Testnet.

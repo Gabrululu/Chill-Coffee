@@ -25,7 +25,7 @@ test('registration permits connection and shared cafés but explains ownership a
 test('tips explain balance, verification, funding and self-payment blockers before enabling', () => {
   assert.equal(tipBlock({ ...approved, ...wallet }), null);
   for (const [patch, message] of [
-    [{ connected: false }, /Connect Freighter/],
+    [{ connected: false }, /Connect Varial Wallet/],
     [{ hasTarget: false }, /Choose an approved café/],
     [{ account: null }, /Checking your Testnet balance/],
     [{ accountError: 'offline', account: null }, /could not be loaded/],
